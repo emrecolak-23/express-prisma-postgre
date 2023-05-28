@@ -5,7 +5,7 @@ import 'express-async-errors'
 
 
 // Import Routes
-import { listUsers, showUser, updateUser } from './routes/users'
+import { listUsers, showUser, updateUser, createUser, deleteUser } from './routes/users'
 
 // Import Errors
 import { errorHandler } from './middlewares/error-handler'
@@ -24,6 +24,8 @@ app.use(cors())
 app.use(listUsers)
 app.use(showUser)
 app.use(updateUser)
+app.use(createUser)
+app.use(deleteUser)
 
 
 app.all('*', (req, res, next) => {

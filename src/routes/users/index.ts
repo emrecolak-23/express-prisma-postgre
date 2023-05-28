@@ -1,3 +1,5 @@
 export { listUsers } from './list'
 export { showUser } from './show'
 export { updateUser } from './update'
+export { createUser } from './create'
+export { deleteUser } from './delete'
