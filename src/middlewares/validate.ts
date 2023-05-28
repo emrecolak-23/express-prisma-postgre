@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { Schema } from "joi";
+import { RequstValidationError } from "../errors/request-validation-error";
 const validate = (schema: Schema) => (req: Request, res: Response, next: NextFunction) => {
     const { value, error } = schema.validate(req.body, { abortEarly: false })
 
@@ -11,8 +12,8 @@ const validate = (schema: Schema) => (req: Request, res: Response, next: NextFun
             const field = detail.message.match(regex)![0].replace(regex, '$1')
             return { message, field }
         })
-        res.status(400).json({ errors: errorMessage })
-        return
+
+        throw new RequstValidationError(errorMessage)
     }
 
     Object.assign(req, value)
