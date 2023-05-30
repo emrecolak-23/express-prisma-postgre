@@ -24,7 +24,7 @@ const isTeacherOfCourseOrAdmin = async (req: Request, res: Response, next: NextF
     })
 
     const coursesId = teacherOf.map(({ courseId }) => courseId)
-    console.log(coursesId)
+
     if (coursesId.includes(Number(courseId))) {
         return next()
     }
