@@ -30,11 +30,11 @@ const currentUser = async (req: Request, res: Response, next: NextFunction) => {
     })
 
     if (!fetchedToken || !fetchedToken?.valid) {
-        throw new NotAuthorizedError()
+        throw new NotAuthorizedError('Token invalid')
     }
 
     if (fetchedToken.expiration < new Date()) {
-        throw new NotAuthorizedError()
+        throw new NotAuthorizedError('Token expired')
     }
 
     req.currentUser = fetchedToken.user
