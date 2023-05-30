@@ -4,13 +4,18 @@ import cors from 'cors'
 import 'express-async-errors'
 
 
+
+
 // Import Routes
 import { listUsers, showUser, updateUser, createUser, deleteUser } from './routes/users'
+import { login, authenticate, checkAuth } from './routes/auth'
 
 // Import Errors
 import { errorHandler } from './middlewares/error-handler'
 import { NotFoundError } from './errors/not-found-error'
 
+// Import Middleware
+import currentUser from './middlewares/current-user'
 
 // Initialize express 
 const app = express()
@@ -18,14 +23,21 @@ const app = express()
 // Middlewares
 app.use(express.json())
 app.use(cors())
+app.use(currentUser)
 
 
-// Routes
+// Users Routes
 app.use(listUsers)
 app.use(showUser)
 app.use(updateUser)
 app.use(createUser)
 app.use(deleteUser)
+
+// Auth Routes
+app.use(login)
+app.use(authenticate)
+app.use(checkAuth)
+
 
 
 app.all('*', (req, res, next) => {

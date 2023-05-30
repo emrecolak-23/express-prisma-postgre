@@ -1,10 +1,12 @@
 import express, { Request, Response } from 'express'
 import prisma from '../../client'
 import { NotFoundError } from '../../errors/not-found-error'
+import requireAuth from '../../middlewares/require-auth'
+
 const router = express.Router()
 
 
-router.delete('/users/:userId', async (req: Request, res: Response) => {
+router.delete('/users/:userId', requireAuth, async (req: Request, res: Response) => {
 
     const { userId } = req.params
 
@@ -21,6 +23,9 @@ router.delete('/users/:userId', async (req: Request, res: Response) => {
     const deletedUser = await prisma.user.delete({
         where: {
             id: Number(userId)
+        },
+        include: {
+            courses: true
         }
     })
 

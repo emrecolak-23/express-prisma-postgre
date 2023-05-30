@@ -8,10 +8,12 @@ import { userInputValidation } from '../../validations/users'
 import { UserInputDto } from '../../dtos/user-input-dto'
 import { NotFoundError } from '../../errors/not-found-error'
 import { User } from '@prisma/client'
+import requireAuth from '../../middlewares/require-auth'
+
 const router = express.Router()
 
 
-router.put('/users/:userId', validate(userInputValidation), async (req: Request, res: Response) => {
+router.put('/users/:userId', requireAuth, validate(userInputValidation), async (req: Request, res: Response) => {
     const { userId } = req.params
 
     const userData = req.body as UserInputDto

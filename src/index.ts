@@ -10,6 +10,10 @@ const start = async () => {
     throw new Error('API_PORT must be defined')
   }
 
+  if (!process.env.JWT_SECRET) {
+    throw new Error('JWT_SECRET must be defined')
+  }
+
 
   const API_PORT = process.env.API_PORT
 

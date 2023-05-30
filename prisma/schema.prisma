@@ -9,24 +9,56 @@ datasource db {
 
 // TODO: define fields and relations
 model User {
-  id        Int    @id @default(autoincrement())
-  email     String @unique
-  firstname String
-  lastName  String
+  id        Int     @id @default(autoincrement())
+  email     String  @unique
+  firstname String?
+  lastName  String?
   social    Json?
 
   // Relational Fields
   courses     CourseEnrollment[]
   testResults TestResult[]       @relation(name: "results")
   testsGraded TestResult[]       @relation(name: "graded")
+  feedback    CourseFeedback[]
+  tokens      Token[]
+}
+
+model Token {
+  id         Int       @id @default(autoincrement())
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  type       TokenType
+  emailToken String?   @unique
+  valid      Boolean   @default(true)
+  expiration DateTime
+
+  // Relation fields
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+}
+
+enum TokenType {
+  EMAIL // used as a short lived token sent to the user's email
+  API
 }
 
 model Course {
-  id            Int                @id @default(autoincrement())
-  name          String
-  courseDetails String?
-  members       CourseEnrollment[]
-  tests         Test[]
+  id             Int                @id @default(autoincrement())
+  name           String
+  courseDetails  String?
+  members        CourseEnrollment[]
+  tests          Test[]
+  CourseFeedback CourseFeedback[]
+}
+
+model CourseFeedback {
+  id       Int    @id @default(autoincrement())
+  feedback String @db.Text
+
+  studentId Int
+  student   User   @relation(fields: [studentId], references: [id])
+  courseId  Int
+  course    Course @relation(fields: [courseId], references: [id])
 }
 
 model CourseEnrollment {
