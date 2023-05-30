@@ -10,7 +10,6 @@ declare global {
 }
 
 
-
 afterAll(async () => {
     const user = await prisma.user.findUnique({
         where: {

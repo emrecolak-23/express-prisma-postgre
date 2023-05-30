@@ -3,7 +3,7 @@ import { app } from "../../../app";
 
 
 
-it('should create a user', async () => {
+it('POST /users should create a user', async () => {
     const token = await auth()
 
     const response = await request(app).post('/users')
@@ -25,7 +25,7 @@ it('should create a user', async () => {
 
 
 
-it('fails with invalid input', async () => {
+it('POST /users fails with invalid input', async () => {
     const token = await auth()
 
     await request(app).post('/users')
