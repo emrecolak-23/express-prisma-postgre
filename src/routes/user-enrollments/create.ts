@@ -5,6 +5,7 @@ import { EnrollmentInputDto } from '../../dtos/enrollment-input-dto'
 import prisma from '../../client'
 import validate from '../../middlewares/validate'
 import { createEnrollmentInputValidation } from '../../validations/enrollments'
+import { UserRole } from '@prisma/client'
 const router = express.Router()
 
 
@@ -28,7 +29,7 @@ router.post('/users/:userId/courses',
                         id: enrollmentData.courseId
                     }
                 },
-                role: enrollmentData.role
+                role: enrollmentData.role === 'STUDENT' ? UserRole.STUDENT : UserRole.TEACHER
             }
         })
 

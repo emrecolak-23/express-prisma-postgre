@@ -17,3 +17,5 @@ const isRequestedUserOrAdmin = async (req: Request, res: Response, next: NextFun
 
     throw new ForbiddenError()
 }
+
+export default isRequestedUserOrAdmin

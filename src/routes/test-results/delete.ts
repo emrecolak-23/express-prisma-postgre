@@ -5,7 +5,7 @@ import prisma from '../../client'
 const router = express.Router()
 
 
-router.delete('/courses/:courseId/test/test-results/:testResultId',
+router.delete('/courses/:courseId/tests/test-results/:testResultId',
     requireAuth,
     isGraderOfTestResultOrAdmin,
     async (req: Request, res: Response) => {
