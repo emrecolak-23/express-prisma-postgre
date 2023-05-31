@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express'
 import requireAuth from '../../middlewares/require-auth'
+import isRequestedUserOrAdmin from '../../guards/isRequestedUserOrAdmin'
 import { EnrollmentInputDto } from '../../dtos/enrollment-input-dto'
 import prisma from '../../client'
 import validate from '../../middlewares/validate'
@@ -9,6 +10,7 @@ const router = express.Router()
 
 router.post('/users/:userId/courses',
     requireAuth,
+    isRequestedUserOrAdmin,
     validate(createEnrollmentInputValidation),
     async (req: Request, res: Response) => {
         const userId = parseInt(req.params.userId)
