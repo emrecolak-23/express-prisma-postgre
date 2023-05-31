@@ -9,6 +9,7 @@ import { login, authenticate, checkAuth } from './routes/auth'
 import { createCourse, listCourses, showCourse, updateCourse, deleteCourse } from './routes/courses'
 import { createTest, showTest, updateTest, deleteTest } from './routes/tests'
 import { createEnrollment, listEnrollments, deleteEnrollment } from './routes/user-enrollments'
+import { createTestResult, listTestResults, showTestResult, deleteTestResult } from './routes/test-results'
 
 // Import Errors
 import { errorHandler } from './middlewares/error-handler'
@@ -50,11 +51,16 @@ app.use(showTest)
 app.use(updateTest)
 app.use(deleteTest)
 
-// Entrolment Routes
+// Enrollment Routes
 app.use(createEnrollment)
 app.use(listEnrollments)
 app.use(deleteEnrollment)
 
+// Test Result Routes
+app.use(createTestResult)
+app.use(listTestResults)
+app.use(showTestResult)
+app.use(deleteTestResult)
 
 app.all('*', (req, res, next) => {
     next(new NotFoundError())
