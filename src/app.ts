@@ -7,6 +7,7 @@ import 'express-async-errors'
 import { listUsers, showUser, updateUser, createUser, deleteUser } from './routes/users'
 import { login, authenticate, checkAuth } from './routes/auth'
 import { createCourse, listCourses, showCourse, updateCourse, deleteCourse } from './routes/courses'
+import { createTest, showTest, updateTest, deleteTest } from './routes/tests'
 
 // Import Errors
 import { errorHandler } from './middlewares/error-handler'
@@ -42,6 +43,11 @@ app.use(showCourse)
 app.use(updateCourse)
 app.use(deleteCourse)
 
+// Test Routes
+app.use(createTest)
+app.use(showTest)
+app.use(updateTest)
+app.use(deleteTest)
 
 app.all('*', (req, res, next) => {
     next(new NotFoundError())
