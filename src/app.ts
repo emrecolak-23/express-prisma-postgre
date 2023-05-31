@@ -8,6 +8,7 @@ import { listUsers, showUser, updateUser, createUser, deleteUser } from './route
 import { login, authenticate, checkAuth } from './routes/auth'
 import { createCourse, listCourses, showCourse, updateCourse, deleteCourse } from './routes/courses'
 import { createTest, showTest, updateTest, deleteTest } from './routes/tests'
+import { createEnrollment, listEnrollments, deleteEnrollment } from './routes/user-enrollments'
 
 // Import Errors
 import { errorHandler } from './middlewares/error-handler'
@@ -48,6 +49,12 @@ app.use(createTest)
 app.use(showTest)
 app.use(updateTest)
 app.use(deleteTest)
+
+// Entrolment Routes
+app.use(createEnrollment)
+app.use(listEnrollments)
+app.use(deleteEnrollment)
+
 
 app.all('*', (req, res, next) => {
     next(new NotFoundError())
