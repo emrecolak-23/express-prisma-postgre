@@ -4,11 +4,11 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-latest
-    # Service containers to run with "container-job"
+    # Service containers to run with `container-job`
     services:
       # Label used to access the service container
       postgres:
-        #Docker hub image
+        # Docker Hub image
         image: postgres
         # Provide the password for postgres
         env:
@@ -22,18 +22,19 @@ jobs:
         ports:
           # Maps tcp port 5432 on service container to the host
           - 5432:5432
-      env:
-        DATABASE_URL: postgresql://postgres:postgres@localhost:5432/grading-app
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/grading-app
 
-      steps:
-        - uses: actions/checkout@v2
-        - uses: actions/setup-node@v1
-          with:
-            node-version: '14.x'
-        - run: npm ci
-        - run: npm run build
-        - run: npm run db:push
-        - run: npm run test
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+      - run: npm ci
+      - run: npm run build
+      # run the migration in the test database
+      - run: npm run db:push
+      - run: npm run test
   # deploy:
   #   runs-on: ubuntu-latest
   #   if: github.event_name == 'push' && github.ref == 'refs/heads/main' # only deploy main
