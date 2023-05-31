@@ -3,8 +3,19 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
+    "build": "prisma generate && tsc",
+    "compiler": "tsc",
+    "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
-    "test": "jest --detectOpenHandles"
+    "test": "TEST=true jest --detectOpenHandles",
+    "test-watch": "TEST=true jest --watch",
+    "postgres:start": "docker-compose up -d",
+    "db-push": "prisma db push --preview-feature",
+    "migrate:reset": "prisma migrate reset",
+    "migrate:create": "prisma migrate dev --create-only",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "prisma:generate": "prisma generate"
   },
   "jest": {
     "preset": "ts-jest",
